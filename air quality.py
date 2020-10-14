@@ -63,7 +63,7 @@ def save_data(data):
 
 def api_request():
 
-    response = requests.get("http://api.luftdaten.info/v1/sensor/50643/")
+    response = requests.get("http://api.luftdaten.info/v1/sensor/50643/")   # 50643 is the id of my sensor
 
     resp = response.json()
     data = []
