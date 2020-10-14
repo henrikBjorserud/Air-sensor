@@ -1,4 +1,6 @@
 import pickle
+import requests
+import time
 import matplotlib.pyplot as plt
 
 def plot(pm10, pm25):
@@ -13,24 +15,11 @@ def plot(pm10, pm25):
     plt.title("Particle in the air, Olskroken:")
     plt.show()
 
-def plot_pm10(pm10):
 
-    pm10 = [float(value) for value in pm10]
-    plt.plot(pm10)
-    plt.title("pm10 in air, Olskroken:")
-    plt.show()
-
-def plot_pm25(pm25):
-
-    pm25 = [float(value) for value in pm25]
-    plt.plot(pm25)
-    plt.title("pm2.5 in air, Olskroken:")
-    plt.show()
-
-def main():
-
+def read_data_from_dat():
     pm10 = []
     pm25 = []
+
     with open("pm10.dat", "rb") as pm10_file:
         while True:
             try:
@@ -41,8 +30,6 @@ def main():
 
     for i in pm10:
         print(i)
-
-    #plot_pm10(pm10)
 
     print("--------------------------")
 
@@ -57,9 +44,48 @@ def main():
     for i in pm25:
         print(i)
 
-    #plot_pm25(pm25)
-
     plot(pm10, pm25)
+
+
+def save_data(data):
+
+    pm10_save = data[0]
+    pm25_save = data[1]
+
+    with open("pm10.dat", "ab") as pm10_file:
+        pickle.dump(pm10_save, pm10_file)
+
+    with open("pm25.dat", "ab") as pm25_file:
+        pickle.dump(pm25_save, pm25_file)
+
+    read_data_from_dat()
+
+
+def api_request():
+
+    response = requests.get("http://api.luftdaten.info/v1/sensor/50643/")
+
+    resp = response.json()
+    data = []
+
+    for i in resp:
+        print(i["sensordatavalues"])
+        for h, j in enumerate(i["sensordatavalues"]):
+            print(j["value"], h + 1)
+            data.append(j["value"])
+
+    save_data(data)
+
+def main():
+
+    start_time = time.time()
+
+    while True:
+        print("tick")
+        api_request()
+
+        time.sleep(150.0 - ((time.time() - start_time) % 150.0))
+
 
 if __name__ == "__main__":
     main()
