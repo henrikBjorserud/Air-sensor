@@ -6,11 +6,13 @@ def plot(pm10, pm25):
     pm10 = [float(value) for value in pm10]
     pm25 = [float(value) for value in pm25]
     plt.plot(pm10, "b-,", label="PM10 (10µm)")
-    plt.plot(pm25, "r-,", label="PM2,5 (2,5µm")
+    plt.plot(pm25, "r-,", label="PM2,5 (2,5µm)")
+    plt.ylabel("PM per m3")
+    plt.xlabel("Minutes")
     plt.legend(loc="best")
-    plt.title("Particle matter per cubic metre air, Olskroken:")
+    plt.title("Particle in the air, Olskroken:")
     plt.show()
- 
+
 def plot_pm10(pm10):
 
     pm10 = [float(value) for value in pm10]

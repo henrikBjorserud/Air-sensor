@@ -1,6 +1,6 @@
 import pickle
 import requests
-import os
+#import os
 import time
 
 
@@ -22,7 +22,7 @@ def save_data(data):
 
 def api_request():
 
-    response = requests.get("http://api.luftdaten.info/v1/sensor/15551/")
+    response = requests.get("http://api.luftdaten.info/v1/sensor/50643/")
 
     resp = response.json()
     data = []
@@ -44,12 +44,6 @@ def main():
         print("tick")
         api_request()
         time.sleep(60.0 - ((time.time() - starttime) % 60.0))
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
