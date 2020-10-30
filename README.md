@@ -14,3 +14,6 @@ I followed these instructions: https://luftdata.se/assets/bygginstruktioner_lov-
 The .dat will be created when user stops the program
 
 I have now added a class called "Reading" av restructured everything
+
+I added a photo of the air sensor to the repository. It was partly
+soldered and partly glued with sparkly glue. 
